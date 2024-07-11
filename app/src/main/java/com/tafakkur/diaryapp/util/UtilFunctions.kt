@@ -3,7 +3,7 @@ package com.tafakkur.diaryapp.util
 import android.net.Uri
 import androidx.core.net.toUri
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storageMetadata
+import com.google.firebase.storage.storageMetadata
 import com.tafakkur.diaryapp.data.database.entity.ImageToDelete
 import com.tafakkur.diaryapp.data.database.entity.ImageToUpload
 import io.realm.kotlin.types.RealmInstant

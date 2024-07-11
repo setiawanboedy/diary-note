@@ -37,7 +37,7 @@ object MongoDB : MongoRepository {
                     add(
                         query = sub.query<Diary>("owner_id == $0", user.id),
                     )
-                }.log(LogLevel.ALL)
+                }
                 .build()
             realm = Realm.open(config)
         }
