@@ -3,20 +3,23 @@ package com.tafakkur.diaryapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.net.toUri
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
+import com.example.util.Constants.APP_ID
 import com.google.firebase.FirebaseApp
-import com.tafakkur.diaryapp.data.database.ImageToDeleteDao
-import com.tafakkur.diaryapp.data.database.ImageToUploadDao
-import com.tafakkur.diaryapp.data.repository.MongoDB
-import com.tafakkur.diaryapp.navigation.Screen
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.storageMetadata
+import com.example.mongo.database.ImageToDeleteDao
+import com.example.mongo.database.ImageToUploadDao
+import com.example.mongo.database.entity.ImageToDelete
+import com.example.mongo.database.entity.ImageToUpload
+import com.example.mongo.repository.MongoDB
+import com.example.util.Screen
 import com.tafakkur.diaryapp.navigation.SetupNavGraph
-import com.tafakkur.diaryapp.ui.theme.DiaryAppTheme
-import com.tafakkur.diaryapp.util.Constants.APP_ID
-import com.tafakkur.diaryapp.util.retryDeletingImageFromFirebase
-import com.tafakkur.diaryapp.util.retryUploadingImageToFirebase
+import com.example.ui.theme.DiaryAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
@@ -28,10 +31,10 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var imageToUploadDao: ImageToUploadDao
+    lateinit var imageToUploadDao: com.example.mongo.database.ImageToUploadDao
 
     @Inject
-    lateinit var imageToDeleteDao: ImageToDeleteDao
+    lateinit var imageToDeleteDao: com.example.mongo.database.ImageToDeleteDao
 
     private var keepSplashOpened: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +45,7 @@ class MainActivity : ComponentActivity() {
         }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         FirebaseApp.initializeApp(this)
-        MongoDB.configureTheRealm()
+        com.example.mongo.repository.MongoDB.configureTheRealm()
         setContent {
 
             DiaryAppTheme(dynamicColor = false) {
@@ -62,8 +65,8 @@ class MainActivity : ComponentActivity() {
 
 private fun cleanupCheck(
     scope: CoroutineScope,
-    imageToUploadDao: ImageToUploadDao,
-    imageToDeleteDao: ImageToDeleteDao
+    imageToUploadDao: com.example.mongo.database.ImageToUploadDao,
+    imageToDeleteDao: com.example.mongo.database.ImageToDeleteDao
 ){
     scope.launch(Dispatchers.IO) {
         val result = imageToUploadDao.getAllImages()
@@ -95,4 +98,25 @@ private fun getStartDestination(): String{
     val user = App.create(APP_ID).currentUser
     return if (user != null && user.loggedIn) Screen.Home.route
     else Screen.Authentication.route
+}
+
+fun retryUploadingImageToFirebase(
+    imageToUpload: com.example.mongo.database.entity.ImageToUpload,
+    onSuccess: () -> Unit
+){
+    val storage = FirebaseStorage.getInstance().reference
+    storage.child(imageToUpload.remoteImagePath).putFile(
+        imageToUpload.imageUri.toUri(),
+        storageMetadata {  },
+        imageToUpload.sessionUri.toUri()
+    ).addOnSuccessListener { onSuccess() }
+}
+
+fun retryDeletingImageFromFirebase(
+    imageToDelete: com.example.mongo.database.entity.ImageToDelete,
+    onSuccess: () -> Unit,
+){
+    val storage = FirebaseStorage.getInstance().reference
+    storage.child(imageToDelete.remoteImagePath).delete()
+        .addOnSuccessListener { onSuccess() }
 }
