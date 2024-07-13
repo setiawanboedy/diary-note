@@ -1,0 +1,5 @@
+com.example.auth
+drawable google_logo
+string app_name
+string auth_subtitle
+string auth_title

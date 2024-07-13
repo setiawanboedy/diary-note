@@ -1,0 +1,4 @@
+int drawable google_logo 0x0
+int string app_name 0x0
+int string auth_subtitle 0x0
+int string auth_title 0x0

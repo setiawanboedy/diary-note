@@ -1,0 +1,19 @@
+com.example.util
+drawable angry
+drawable awful
+drawable bored
+drawable calm
+drawable depressed
+drawable disappointed
+drawable happy
+drawable humorous
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable lonely
+drawable mysterious
+drawable neutral
+drawable romantic
+drawable shameful
+drawable surprised
+drawable suspicious
+drawable tense

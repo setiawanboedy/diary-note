@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DiaryApp</string>
+    <string name="auth_subtitle">Please sign to continue</string>
+    <string name="auth_title">Welcome Back</string>
+</resources>

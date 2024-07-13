@@ -1,0 +1,2 @@
+int drawable google_logo 0x0
+int drawable logo 0x0
