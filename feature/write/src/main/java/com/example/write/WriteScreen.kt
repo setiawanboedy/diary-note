@@ -63,8 +63,8 @@ fun WriteScreen(
     var selectedGalleryImage by remember {
         mutableStateOf<GalleryImage?>(null)
     }
-    val pagerImageState = rememberPagerState(pageCount = { galleryState.images.size })
 
+    val pagerImageState = rememberPagerState(pageCount = { galleryState.images.size })
     LaunchedEffect(key1 = uiState.mood) {
         pagerState.scrollToPage(Mood.valueOf(uiState.mood.name).ordinal)
     }
@@ -98,32 +98,24 @@ fun WriteScreen(
                     selectedGalleryImage = null
                 }) {
                     if (selectedGalleryImage != null) {
-                        LaunchedEffect(key1 = selectedGalleryImage) {
-                            if (selectedGalleryImage != null){
-                                pagerImageState.scrollToPage(galleryState.images.indexOf(selectedGalleryImage))
-                            }
-                        }
-                        HorizontalPager(state = pagerImageState ) { pager ->
-                            LaunchedEffect(key1 = pager) {
-                                selectedGalleryImage = galleryState.images[pager]
-                            }
-                            Box(modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center){
-                                ZoomableImage(
-                                    selectedImage = galleryState.images[pager],
-                                    onCloseClicked = {
-                                        selectedGalleryImage = null
-                                    },
-                                    onDeleteClicked = {
-                                        if (selectedGalleryImage != null) {
-                                            onImageDeleteClicked(selectedGalleryImage!!)
-                                            selectedGalleryImage = null
-                                        }
-                                    }
-                                )
-                            }
 
-                        }
+                        ZoomableImage(
+                            selectedGalleryImage = selectedGalleryImage!!,
+                            pagerImage = { pagerImage ->
+                                selectedGalleryImage = pagerImage
+                            },
+                            onCloseClicked = {
+                                selectedGalleryImage = null
+                            },
+                            onDeleteClicked = {
+                                if (selectedGalleryImage != null) {
+                                    onImageDeleteClicked(selectedGalleryImage!!)
+                                    selectedGalleryImage = null
+                                }
+                            },
+                            galleryState = galleryState,
+                            pagerImageState = pagerImageState
+                        )
                     }
                 }
             }
@@ -131,50 +123,39 @@ fun WriteScreen(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ZoomableImage(
-    selectedImage: GalleryImage,
+    pagerImage: (GalleryImage) -> Unit,
     onCloseClicked: () -> Unit,
     onDeleteClicked: () -> Unit,
+    galleryState: GalleryState,
+    pagerImageState: PagerState,
+    selectedGalleryImage: GalleryImage
 ) {
-//    var offsetX by remember {
-//        mutableFloatStateOf(0f)
-//    }
-//    var offsetY by remember {
-//        mutableFloatStateOf(0f)
-//    }
-//    var scale by remember {
-//        mutableFloatStateOf(1f)
-//    }
-
     Box(
-//        modifier = Modifier.pointerInput(Unit) {
-//        detectTransformGestures { _, pan, zoom, _ ->
-//            scale = maxOf(1f, minOf(scale * zoom, 5f))
-//            val maxX = (size.width * (scale - 1)) / 2
-//            val minX = -maxX
-//            offsetX = maxOf(minX, minOf(maxX, offsetX + pan.x))
-//            val maxY = (size.height * (scale - 1))
-//            val minY = -maxY
-//            offsetY = maxOf(minY, minOf(maxY, offsetY + pan.y))
-//        }
-//    }
     ) {
-        AsyncImage(
-            modifier = Modifier
-                .fillMaxSize(),
-//                .graphicsLayer(
-//                    scaleX = maxOf(.5f, minOf(3f, scale)),
-//                    scaleY = maxOf(.5f, minOf(3f, scale)),
-//                    translationX = offsetX,
-//                    translationY = offsetY
-//                ),
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(selectedImage.image.toString())
-                .crossfade(true)
-                .build(),
-            contentDescription = "Gallery Image"
-        )
+        LaunchedEffect(key1 = selectedGalleryImage) {
+                pagerImageState.scrollToPage(
+                    galleryState.images.indexOf(
+                        selectedGalleryImage
+                    )
+                )
+        }
+        HorizontalPager(state = pagerImageState) { pager ->
+            LaunchedEffect(key1 = pager) {
+                pagerImage(galleryState.images[pager])
+            }
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxSize(),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(galleryState.images[pager].image)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Gallery Image"
+            )
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
