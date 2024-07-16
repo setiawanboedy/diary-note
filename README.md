@@ -1,7 +1,7 @@
 
 <h1 align="center">Diaryapp Note (compose) with MangoDB</h1></br>
 <p align="center">  
-Journal Note app using compose and Hilt based on modern Android tech-stacks and MVVM architecture. Fetching data from the network and integrating persisted data in the database via repository pattern.<br> Declarative UI version using compose.
+Journal Note app using compose and Hilt based on modern Android tech-stacks and MVVM architecture. Fetching data from the network and integrating persisted data in the <a href="https://mongodb.com" target="_blank"> MongoDB </a> via repository pattern.<br> Declarative UI version using compose.
 </p>
 </br>
 
