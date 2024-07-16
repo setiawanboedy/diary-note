@@ -17,11 +17,12 @@ Go to the [Releases](https://github.com/setiawanboedy/diary-note/releases) to do
 ## Screenshots
 <p align="center">
 
-[//]: # (<img src="https://user-images.githubusercontent.com/24237865/93901108-238eb000-fd31-11ea-9fac-c9ba1eca146c.gif" width="270"/>)
-
-[//]: # (<img src="/preview/preview0.gif" width="270"/>)
-
-[//]: # (<img src="/preview/preview1.gif" width="270"/>)
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164546.png" width="270"/>
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164643.png" width="270"/>
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164715.png" width="270"/>
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164723.png" width="270"/>
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164911.png" width="270"/>
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164741.png" width="270"/>
 </p>
 
 ## Tech stack & Open-source libraries
