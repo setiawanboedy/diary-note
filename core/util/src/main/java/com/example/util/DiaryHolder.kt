@@ -124,7 +124,7 @@ fun DiaryHolder(
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                DiaryHeader(moodName = diary.mood, time = diary.date.toInstant())
+                DiaryappHeader(moodName = diary.mood, time = diary.date.toInstant())
                 Text(
                     modifier = Modifier.padding(all = 14.dp),
                     text = diary.description,
@@ -162,7 +162,7 @@ fun DiaryHolder(
 }
 
 @Composable
-fun DiaryHeader(
+fun DiaryappHeader(
     moodName: String,
     time: Instant
 ) {
@@ -218,9 +218,9 @@ fun ShowGalleryButton(
 
 @Preview
 @Composable
-fun DiaryHolderPreview() {
+fun DiaryappHolderPreview() {
     DiaryHolder(diary = Diary().apply {
-        title = "My Diary"
+        title = "My Diaryapp"
         description = "Lorem Ipsum\nlorem again \nagain"
         mood = Mood.Angry.name
         images = realmListOf("","")

@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.example.mongo.repository.MongoDB
 import com.example.home.HomeScreen
 import com.example.home.HomeViewModel
 import com.example.ui.components.DisplayAlertDialog
@@ -73,7 +74,7 @@ fun NavGraphBuilder.homeRoute(
         )
 
         LaunchedEffect(key1 = Unit) {
-            com.example.mongo.repository.MongoDB.configureTheRealm()
+            MongoDB.configureTheRealm()
         }
 
         DisplayAlertDialog(

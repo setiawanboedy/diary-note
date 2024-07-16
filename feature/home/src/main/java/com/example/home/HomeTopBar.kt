@@ -20,9 +20,10 @@ import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
+@Suppress("newApi")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(
+internal fun HomeTopBar(
     onMenuClicked: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     dateIsSelected: Boolean,
@@ -41,7 +42,7 @@ fun HomeTopBar(
             }
         },
         title = {
-            Text(text = "Diary")
+            Text(text = "Journal Note")
         },
         actions = {
             if (dateIsSelected) {

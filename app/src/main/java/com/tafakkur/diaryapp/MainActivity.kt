@@ -8,18 +8,18 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.example.util.Constants.APP_ID
-import com.google.firebase.FirebaseApp
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.storageMetadata
 import com.example.mongo.database.ImageToDeleteDao
 import com.example.mongo.database.ImageToUploadDao
 import com.example.mongo.database.entity.ImageToDelete
 import com.example.mongo.database.entity.ImageToUpload
 import com.example.mongo.repository.MongoDB
+import com.example.util.Constants.APP_ID
+import com.google.firebase.FirebaseApp
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.storageMetadata
 import com.example.util.Screen
 import com.tafakkur.diaryapp.navigation.SetupNavGraph
-import com.example.ui.theme.DiaryAppTheme
+import com.example.ui.theme.DiaryappTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
@@ -31,10 +31,10 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var imageToUploadDao: com.example.mongo.database.ImageToUploadDao
+    lateinit var imageToUploadDao: ImageToUploadDao
 
     @Inject
-    lateinit var imageToDeleteDao: com.example.mongo.database.ImageToDeleteDao
+    lateinit var imageToDeleteDao: ImageToDeleteDao
 
     private var keepSplashOpened: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +45,10 @@ class MainActivity : ComponentActivity() {
         }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         FirebaseApp.initializeApp(this)
-        com.example.mongo.repository.MongoDB.configureTheRealm()
+        MongoDB.configureTheRealm()
         setContent {
 
-            DiaryAppTheme(dynamicColor = false) {
+            DiaryappTheme(dynamicColor = false) {
                val navController = rememberNavController()
                 SetupNavGraph(
                     startDestination = getStartDestination(),
@@ -65,8 +65,8 @@ class MainActivity : ComponentActivity() {
 
 private fun cleanupCheck(
     scope: CoroutineScope,
-    imageToUploadDao: com.example.mongo.database.ImageToUploadDao,
-    imageToDeleteDao: com.example.mongo.database.ImageToDeleteDao
+    imageToUploadDao: ImageToUploadDao,
+    imageToDeleteDao: ImageToDeleteDao
 ){
     scope.launch(Dispatchers.IO) {
         val result = imageToUploadDao.getAllImages()
@@ -101,7 +101,7 @@ private fun getStartDestination(): String{
 }
 
 fun retryUploadingImageToFirebase(
-    imageToUpload: com.example.mongo.database.entity.ImageToUpload,
+    imageToUpload: ImageToUpload,
     onSuccess: () -> Unit
 ){
     val storage = FirebaseStorage.getInstance().reference
@@ -113,7 +113,7 @@ fun retryUploadingImageToFirebase(
 }
 
 fun retryDeletingImageFromFirebase(
-    imageToDelete: com.example.mongo.database.entity.ImageToDelete,
+    imageToDelete: ImageToDelete,
     onSuccess: () -> Unit,
 ){
     val storage = FirebaseStorage.getInstance().reference

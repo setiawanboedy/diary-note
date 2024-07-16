@@ -44,8 +44,8 @@ enum class Mood(
         contentColor = Color.Black,
         containerColor = BoredColor
     ),
-    Calm(
-        icon = R.drawable.calm,
+    Blush(
+        icon = R.drawable.blush,
         contentColor = Color.Black,
         containerColor = CalmColor
     ),
@@ -55,7 +55,7 @@ enum class Mood(
         containerColor = DepressedColor
     ),
     Disappointed(
-        icon = R.drawable.disappointed,
+        icon = R.drawable.dissapointed,
         contentColor = Color.White,
         containerColor = DisappointedColor
     ),
@@ -64,28 +64,28 @@ enum class Mood(
         contentColor = Color.Black,
         containerColor = HumorousColor
     ),
-    Lonely(
-        icon = R.drawable.lonely,
+    Evil(
+        icon = R.drawable.evil,
         contentColor = Color.White,
         containerColor = LonelyColor
     ),
-    Mysterious(
-        icon = R.drawable.mysterious,
+    Kindness(
+        icon = R.drawable.kindness,
         contentColor = Color.Black,
         containerColor = MysteriousColor
     ),
-    Romantic(
-        icon = R.drawable.romantic,
+    Frustration(
+        icon = R.drawable.frustration,
         contentColor = Color.White,
         containerColor = RomanticColor
     ),
-    Shameful(
-        icon = R.drawable.shameful,
+    Sick(
+        icon = R.drawable.sick,
         contentColor = Color.White,
         containerColor = ShamefulColor
     ),
-    Awful(
-        icon = R.drawable.awful,
+    Sad(
+        icon = R.drawable.sad,
         contentColor = Color.Black,
         containerColor = AwfulColor
     ),
@@ -94,13 +94,13 @@ enum class Mood(
         contentColor = Color.Black,
         containerColor = SurprisedColor
     ),
-    Suspicious(
-        icon = R.drawable.suspicious,
+    Love(
+        icon = R.drawable.love,
         contentColor = Color.Black,
         containerColor = SuspiciousColor
     ),
-    Tense(
-        icon = R.drawable.tense,
+    Fear(
+        icon = R.drawable.fearfull,
         contentColor = Color.Black,
         containerColor = TenseColor
     )

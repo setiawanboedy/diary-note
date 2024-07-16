@@ -6,6 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mongo.database.ImageToDeleteDao
+import com.example.mongo.database.entity.ImageToDelete
+import com.example.mongo.repository.Diaries
+import com.example.mongo.repository.MongoDB
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.example.util.connectivity.ConnectivityObserver
@@ -25,9 +29,9 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val connectivity: NetworkConnectivityObserver,
-    private val imageToDeleteDao: com.example.mongo.database.ImageToDeleteDao
+    private val imageToDeleteDao: ImageToDeleteDao
 ): ViewModel() {
-    var diaries: MutableState<com.example.mongo.repository.Diaries> = mutableStateOf(RequestState.Idle)
+    var diaries: MutableState<Diaries> = mutableStateOf(RequestState.Idle)
     private var network by mutableStateOf(ConnectivityObserver.Status.Unavailable)
 
     var dateIsSelected by mutableStateOf(false)
@@ -61,7 +65,7 @@ class HomeViewModel @Inject constructor(
             if (::filteredDiariesJob.isInitialized){
                 filteredDiariesJob.cancelAndJoin()
             }
-            com.example.mongo.repository.MongoDB.getAllDiaries().debounce(2000).collect{ result ->
+            MongoDB.getAllDiaries().debounce(2000).collect{ result ->
                 diaries.value = result
             }
         }
@@ -72,7 +76,7 @@ class HomeViewModel @Inject constructor(
             if (::allDiariesJob.isInitialized){
                 allDiariesJob.cancelAndJoin()
             }
-            com.example.mongo.repository.MongoDB.getFilteredDiaries(zonedDateTime = zonedDateTime).collect{ result ->
+            MongoDB.getFilteredDiaries(zonedDateTime = zonedDateTime).collect{ result ->
                 diaries.value = result
             }
         }
@@ -95,7 +99,7 @@ class HomeViewModel @Inject constructor(
                             .addOnFailureListener {
                                 viewModelScope.launch(Dispatchers.IO) {
                                     imageToDeleteDao.addImageToDelete(
-                                        com.example.mongo.database.entity.ImageToDelete(
+                                        ImageToDelete(
                                             remoteImagePath = imagePath
                                         )
                                     )
@@ -103,7 +107,7 @@ class HomeViewModel @Inject constructor(
                             }
                     }
                     viewModelScope.launch(Dispatchers.IO) {
-                        val result = com.example.mongo.repository.MongoDB.deleteAllDiaries()
+                        val result = MongoDB.deleteAllDiaries()
                         if (result is RequestState.Success){
                             withContext(Dispatchers.Main){
                                 onSuccess()

@@ -22,7 +22,7 @@ import com.example.ui.components.GoogleButton
 fun AuthenticationContent(
     modifier: Modifier = Modifier,
     loadingState: Boolean,
-    onButtonClicked: ()-> Unit
+    onButtonClicked: () -> Unit
 ) {
     Column(
         modifier = modifier,

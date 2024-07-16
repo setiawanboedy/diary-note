@@ -2,6 +2,7 @@ package com.tafakkur.diaryapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.mongo.database.ImagesDatabase
 import com.example.util.connectivity.NetworkConnectivityObserver
 import com.example.util.Constants.IMAGES_DATABASE
 import dagger.Module
@@ -18,21 +19,21 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): com.example.mongo.database.ImagesDatabase {
+    ): ImagesDatabase {
         return Room.databaseBuilder(
             context = context,
-            klass = com.example.mongo.database.ImagesDatabase::class.java,
+            klass = ImagesDatabase::class.java,
             name = IMAGES_DATABASE
         ).build()
     }
 
     @Provides
     @Singleton
-    fun provideFirstDao(database: com.example.mongo.database.ImagesDatabase) = database.imageToUploadDao()
+    fun provideFirstDao(database: ImagesDatabase) = database.imageToUploadDao()
 
     @Provides
     @Singleton
-    fun provideSecondDao(database: com.example.mongo.database.ImagesDatabase) = database.imageToDeleteDao()
+    fun provideSecondDao(database: ImagesDatabase) = database.imageToDeleteDao()
 
     @Singleton
     @Provides

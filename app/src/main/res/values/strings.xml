@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DiaryApp</string>
+    <string name="app_name">Journal Note</string>
     <string name="auth_title">Welcome Back</string>
     <string name="auth_subtitle">Please sign to continue</string>
 </resources>

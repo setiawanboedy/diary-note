@@ -8,6 +8,11 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mongo.database.ImageToDeleteDao
+import com.example.mongo.database.ImageToUploadDao
+import com.example.mongo.database.entity.ImageToDelete
+import com.example.mongo.database.entity.ImageToUpload
+import com.example.mongo.repository.MongoDB
 import com.example.ui.GalleryImage
 import com.example.ui.GalleryState
 import com.example.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
@@ -33,8 +38,8 @@ import javax.inject.Inject
 @HiltViewModel
 internal  class WriteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val imageToUploadDao: com.example.mongo.database.ImageToUploadDao,
-    private val imageToDeleteDao: com.example.mongo.database.ImageToDeleteDao
+    private val imageToUploadDao: ImageToUploadDao,
+    private val imageToDeleteDao: ImageToDeleteDao
 ) : ViewModel() {
     val galleryState = GalleryState()
     var uiState by mutableStateOf(UiState())
@@ -56,7 +61,7 @@ internal  class WriteViewModel @Inject constructor(
     private fun fetchSelectedDiary() {
         if (uiState.selectedDiaryId != null) {
             viewModelScope.launch(Dispatchers.Main) {
-                com.example.mongo.repository.MongoDB.getSelectedDiary(
+                MongoDB.getSelectedDiary(
                     diaryId = ObjectId.invoke(uiState.selectedDiaryId!!)
                 )
                     .catch {
@@ -144,7 +149,7 @@ internal  class WriteViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        val result = com.example.mongo.repository.MongoDB.addNewDiary(diary = diary.apply {
+        val result = MongoDB.addNewDiary(diary = diary.apply {
             if (uiState.updatedTime != null) {
                 date = uiState.updatedTime!!
             }
@@ -166,7 +171,7 @@ internal  class WriteViewModel @Inject constructor(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        val result = com.example.mongo.repository.MongoDB.updateSelectedDiary(diary.apply {
+        val result = MongoDB.updateSelectedDiary(diary.apply {
             _id = ObjectId.invoke(uiState.selectedDiaryId!!)
             date =
                 if (uiState.updatedTime != null) uiState.updatedTime!! else uiState.selectedDiary!!.date
@@ -201,7 +206,7 @@ internal  class WriteViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (uiState.selectedDiaryId != null) {
-                val result = com.example.mongo.repository.MongoDB.deleteSelectedDiary(ObjectId.invoke(uiState.selectedDiaryId!!))
+                val result = MongoDB.deleteSelectedDiary(ObjectId.invoke(uiState.selectedDiaryId!!))
                 if (result is RequestState.Success) {
                     withContext(Dispatchers.Main) {
                         uiState.selectedDiary?.let {
@@ -228,7 +233,7 @@ internal  class WriteViewModel @Inject constructor(
                     if (sessionUri != null) {
                         viewModelScope.launch(Dispatchers.IO) {
                             imageToUploadDao.addImageToUpload(
-                                com.example.mongo.database.entity.ImageToUpload(
+                                ImageToUpload(
                                     remoteImagePath = galleryImage.remoteImagePath,
                                     imageUri = galleryImage.image.toString(),
                                     sessionUri = sessionUri.toString()
@@ -248,7 +253,7 @@ internal  class WriteViewModel @Inject constructor(
                     .addOnFailureListener {
                         viewModelScope.launch(Dispatchers.IO) {
                             imageToDeleteDao.addImageToDelete(
-                                com.example.mongo.database.entity.ImageToDelete(remoteImagePath = remotePath)
+                                ImageToDelete(remoteImagePath = remotePath)
                             )
                         }
                     }
@@ -260,7 +265,7 @@ internal  class WriteViewModel @Inject constructor(
                     .addOnFailureListener {
                         viewModelScope.launch(Dispatchers.IO) {
                             imageToDeleteDao.addImageToDelete(
-                                com.example.mongo.database.entity.ImageToDelete(remoteImagePath = remotePath)
+                                ImageToDelete(remoteImagePath = remotePath)
                             )
                         }
                     }

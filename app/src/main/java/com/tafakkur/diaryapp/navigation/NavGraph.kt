@@ -28,7 +28,7 @@ fun SetupNavGraph(
                 navController.navigate(Screen.Write.route)
             },
             navigateToWriteArgs = {
-                navController.navigate(Screen.Write.passDiaryId(diaryId = it))
+                navController.navigate(Screen.Write.passDiaryappId(diaryappId = it))
             },
             navigateToAuth = {
                 navController.popBackStack()
