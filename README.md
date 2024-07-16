@@ -38,3 +38,8 @@ Go to the [Releases](https://github.com/setiawanboedy/diary-note/releases) to do
     - MVVM Architecture (Declarative View - ViewModel - Model)
     - Repository pattern
 - Material3 Design & Animations
+- [OneTap](https://github.com/JakeWharton/timber) - OneTapCompose for google login.
+- [Firebase](https://firebase.google.com/docs/android/setup) - OneTapCompose for google login.
+- [Room](https://developer.android.com/jetpack/androidx/releases/room) - Persisted database library.
+- [Retrofit2](https://github.com/square/retrofit) - construct the REST APIs and paging network data.
+- [MongoDb](https://github.com/mongodb/stitch-android-sdk) - construct the REST APIs and paging network data.
