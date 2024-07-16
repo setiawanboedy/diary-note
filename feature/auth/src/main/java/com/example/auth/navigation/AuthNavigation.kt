@@ -23,7 +23,6 @@ fun NavGraphBuilder.authenticationRoute(
         val authenticated by viewModel.authenticated
         val messageBarState = rememberMessageBarState()
 
-        Unit
         LaunchedEffect(key1 = Unit) {
             onDataLoaded()
         }

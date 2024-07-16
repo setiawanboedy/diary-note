@@ -10,11 +10,11 @@ import com.example.mongo.database.ImageToDeleteDao
 import com.example.mongo.database.entity.ImageToDelete
 import com.example.mongo.repository.Diaries
 import com.example.mongo.repository.MongoDB
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.example.util.connectivity.ConnectivityObserver
 import com.example.util.connectivity.NetworkConnectivityObserver
 import com.example.util.model.RequestState
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview

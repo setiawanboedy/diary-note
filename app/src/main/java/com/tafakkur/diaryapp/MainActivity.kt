@@ -13,13 +13,13 @@ import com.example.mongo.database.ImageToUploadDao
 import com.example.mongo.database.entity.ImageToDelete
 import com.example.mongo.database.entity.ImageToUpload
 import com.example.mongo.repository.MongoDB
+import com.example.ui.theme.DiaryappTheme
 import com.example.util.Constants.APP_ID
+import com.example.util.Screen
 import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storageMetadata
-import com.example.util.Screen
 import com.tafakkur.diaryapp.navigation.SetupNavGraph
-import com.example.ui.theme.DiaryappTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope

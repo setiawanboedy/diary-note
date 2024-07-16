@@ -24,8 +24,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.util.model.Diary
 import com.example.util.DiaryHolder
+import com.example.util.model.Diary
 import java.time.LocalDate
 import java.util.Locale
 

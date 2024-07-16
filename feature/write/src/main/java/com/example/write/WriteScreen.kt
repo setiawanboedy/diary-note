@@ -129,8 +129,7 @@ fun ZoomableImage(
     pagerImageState: PagerState,
     selectedGalleryImage: GalleryImage
 ) {
-    Box(
-    ) {
+    Box {
         LaunchedEffect(key1 = selectedGalleryImage) {
                 pagerImageState.scrollToPage(
                     galleryState.images.indexOf(
