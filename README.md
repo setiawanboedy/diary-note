@@ -22,6 +22,7 @@ Go to the [Releases](https://github.com/setiawanboedy/diary-note/releases) to do
 <img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164715.png" width="270"/>
 <img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164723.png" width="270"/>
 <img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164911.png" width="270"/>
+<img src="https://github.com/setiawanboedy/journal-note/blob/modular/screenshot/Screenshot_20240716_164741.png" width="270"/>
 </p>
 
 ## Tech stack & Open-source libraries
