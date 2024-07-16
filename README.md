@@ -1,5 +1,5 @@
 
-<h1 align="center">Diaryapp Note (compose) with MangoDB</h1></br>
+<h1 align="center">Journal Note (compose) with MangoDB</h1></br>
 <p align="center">  
 Journal Note app using compose and Hilt based on modern Android tech-stacks and MVVM architecture. Fetching data from the network and integrating persisted data in the <a href="https://mongodb.com" target="_blank"> MongoDB </a> via repository pattern.<br> Declarative UI version using compose.
 </p>
@@ -28,6 +28,8 @@ Go to the [Releases](https://github.com/setiawanboedy/diary-note/releases) to do
 - Minimum SDK level 24
 - 100% [Kotlin](https://kotlinlang.org/) based + [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
 - Hilt for dependency injection.
+- Room for database persist
+- Firebase Storage for Image Storage
 - JetPack
     - Compose - A modern toolkit for building native Android UI.
     - Lifecycle - dispose observing data when lifecycle state changes.
